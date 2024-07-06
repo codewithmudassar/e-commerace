@@ -143,6 +143,19 @@ const page = () => {
               className="mt-2 p-2 w-full rounded-md border active:border-orange-200"
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-xl text-gray-500" htmlFor="desc">
+              desc
+            </label>
+            <textarea
+              id="desc"
+              type="text"
+              name="desc"
+              placeholder="desc"
+              onChange={changeHandler}
+              className="mt-2 p-2 w-full rounded-md border active:border-orange-200"
+            />
+          </div>
 
           <div className="mb-4">
             <label className="block text-xl text-gray-500" htmlFor="images">
@@ -185,7 +198,7 @@ const page = () => {
             </div>
           )}
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-xl text-gray-500" htmlFor="desc">
               Description
             </label>
@@ -210,7 +223,7 @@ const page = () => {
                 tinycomments_author: "Author name",
               }}
             />
-          </div>
+          </div> */}
 
           <div className="mb-4">
             <button className="mt-2 p-2 w-full rounded-md border font-bold uppercase text-white bg-orange-600 active:text-white">

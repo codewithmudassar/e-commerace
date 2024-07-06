@@ -6,12 +6,14 @@ import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { CartContext } from "@/context/CartProvider";
+import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, refetch } = useContext(AuthContext);
-
-  
+  const { cartItems } = useContext(CartContext);
+  const NoOfCartItems = cartItems.length;
 
   const handleLogout = async () => {
     try {
@@ -36,15 +38,17 @@ const Navbar = () => {
     <div>
       <Toaster />
 
-      <nav className="bg-gray-100 border-gray-200 sticky top-0 ">
+      <nav className="bg-gray-100 border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <img
-            src="https://www.ceg.org/wp-content/uploads/2021/04/Amazon-Logo-505x149.png"
-            width={92}
-            height={92}
-            alt="amazon logo"
+          <div className="flex  items-center">
+          <Image
+            src="/logo2.png"
+            width={50}
+            height={50}
+            alt="CA-shop logo"
           />
-          <div></div>
+          <span className=" text-xl font-bold text-orange-500">-Shop</span>
+          </div>
           <div className="flex md:order-2">
             <button
               type="button"
@@ -74,7 +78,7 @@ const Navbar = () => {
           </div>
           {/* className={`transition-all duration-500 ease-in-out items-center justify-between ${menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'} overflow-hidden w-full md:flex md:w-auto md:order-1`} */}
           <div
-            className={`transition-all duration-1000 ease-in-out items-center justify-between ${
+            className={`transition-all duration-500 ease-in items-center justify-between ${
               menuOpen ? "block" : "hidden"
             } overflow-hidden w-full md:flex md:w-auto md:order-1`}
             id="navbar-search"
@@ -102,7 +106,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/about"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-orange-100 md:hover:bg-transparent md:hover:text-orange-500 md:p-0p focus:text-orange-500"
                 >
                   About
@@ -123,7 +127,7 @@ const Navbar = () => {
             </ul>
 
             {user ? (
-              <div className="flex justify-between md:hidden">
+              <div className="flex justify-between items-center md:hidden">
                 <div className="flex group relative md:hidden items-center gap-2 pr-4 md:border-l  pl-2.5">
                   <img
                     src={user.photo}
@@ -179,18 +183,31 @@ const Navbar = () => {
                     </ul>
                   </div>
                 </div>
-                <div>
-                  <i className="bx bx-cart text-3xl"></i>
-                </div>
+                {/* bx bx-cart */}
+                <Link href={"/cart"}>
+                  <i className=" bx bx-cart  relative cursor-pointer text-2xl text-gray-600 hover:text-orange-500">
+                    {NoOfCartItems <= 0 ? null : (
+                      <span className="bg-orange-300 text-[#344352] absolute -top-1 left-2 text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                        {NoOfCartItems}
+                      </span>
+                    )}
+                  </i>
+                </Link>
               </div>
             ) : null}
           </div>
           {user ? (
-            <div className="  hidden md:block md:order-2">
+            <div className="  hidden items-center md:block md:order-2">
               <div className="flex gap-4">
-                <div>
-                  <i className="bx bx-cart text-3xl"></i>
-                </div>
+                <Link href={"/cart"}>
+                  <i className=" bx bx-cart  relative cursor-pointer text-2xl text-gray-600 hover:text-orange-500">
+                    {NoOfCartItems <= 0 ? null : (
+                      <span className="bg-orange-300 text-[#344352] absolute -top-1 left-2 text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                        {NoOfCartItems}
+                      </span>
+                    )}
+                  </i>
+                </Link>
 
                 <div className="flex group relative  items-center gap-2 pr-4 md:border-l  pl-2.5">
                   <img

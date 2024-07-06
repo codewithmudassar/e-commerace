@@ -29,7 +29,7 @@ const page = () => {
     setSuccess(null);
 
     try {
-      const res = await axios.post("/api/auth", formData);
+      const res = await axios.post("/api/users", formData);
 
       if (res?.data?.success) {
         setSuccess("Form submitted successfully!");

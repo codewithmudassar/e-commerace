@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     switch (req.method) {
         case"GET":
             try {
-                var categories = await CategoryModel.find()
+                const categories = await CategoryModel.find()
                 res.send({
                     success:true,
                     message:categories

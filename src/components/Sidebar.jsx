@@ -10,6 +10,7 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
+  
   const sidebarLinks = [
     {
       label: "Dashboard",
@@ -42,8 +43,8 @@ const Sidebar = () => {
       sIcon: "bx bxs-category",
     },
     {
-      label: "Suppliers",
-      href: "/admin/supplier",
+      label: "Users",
+      href: "/admin/users",
       icon: "bx bx-group",
       sIcon: "bx bxs-group",
     },
@@ -55,8 +56,7 @@ const Sidebar = () => {
     },
   ];
 
-  const { title } = useContext(AuthContext);
-  console.log(title);
+  // const { title } = useContext(AuthContext);
 
   return (
     <div className="border-solid h-screen relative justify-between flex flex-col">
@@ -66,13 +66,23 @@ const Sidebar = () => {
         }`}
       >
         <div className="flex justify-between items-center">
-          <img
-            className={`w-32 transition-all duration-300 ${
-              isExpanded ? "block" : "w-16 mt-4"
-            }`}
-            src="https://www.ceg.org/wp-content/uploads/2021/04/Amazon-Logo-505x149.png"
-            alt=""
-          />
+                    <div className="flex  items-center">
+                      <img
+                        className={`w-20 transition-all duration-300 ${
+                          isExpanded ? "block" : "w-16 mt-4"
+                        }`}
+                        src="/logo2.png"
+                        alt=""
+
+                      />
+            <span className={`text-xl font-bold text-orange-500 ${ isExpanded ? "block" : "hidden"}`}>-Shop</span>
+          </div>
+          {/* <Image
+            src="/logo2.png"
+            width={50}
+            height={50}
+            alt="CA-shop logo"
+          /> */}
           {/* <button onClick={toggleSidebar} className="text-gray-500 hover:text-gray-700 focus:outline-nonabsolute -right-5 bottom-5 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-lg cursor-pointer">
           <i className={`bx ${isExpanded ? 'bx-chevron-left' : 'bx-chevron-right'}`}></i>
         </button> */}

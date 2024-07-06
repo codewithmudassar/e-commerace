@@ -1,106 +1,291 @@
 "use client"
-import React , { useContext } from "react";
+import Link from "next/link";
+import { Toaster, toast } from "react-hot-toast";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
-const page = () => {
-  const { user } = useContext(AuthContext)
-  console.log(user)
-  return (
-    <div>
-       <div className=" grid lg:grid-cols-3 max-w-[1100px] m-auto grid-cols-1">
-        <div className="bg-white shadow-md shadow-gray-200 border-dotted lg:col-span-1 rounded-lg px-8 py-8 flex flex-col items-center justify-center h-fit lg:mb-0 mb-5">
-          <div className="w-36 h-36 rounded-full">
-            <img
-              alt="Image Here"
-              src={user ? user?.photo :  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2yn3ZsTyoXw7ISC4lViXDaW7uWZRCPAsM-w&s"  }
-              className=" rounded-full w-full h-full object-cover profileBoxShadow"
-            ></img>
-          </div>
+import axios from "axios";
 
-          <div className="flex items-center justify-center flex-col my-4">
-            <h1
-              className={`mb-2 text-2xl font-bold text-slate-600`}
-            >
-              {user?.fullName}
-            </h1>
-            <p className="mb-5 px-4 text-xs py-1 bg-indigo-50 text-indigo-400 font-light w-fit rounded-lg">
-              {user?.isAdmin ? "Admin" : "User"}
-            </p>
-            <button className="text-sm bg-indigo-400 text-white px-8 py-1.5 rounded hover:bg-indigo-500">
-              Hire Me
-            </button>
-          </div>
-          <div className="mt-4 w-full flex flex-col gap-5">
-            <div className=" border rounded-full">
-              <span className=" text-slate-500 text-xs block -translate-y-2 px-5 mb-1 bg-white w-fit">
-                Username
+const index = () => {
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  // adding new address here ------------
+  const [addressFormData, setAddressFormData] = useState({
+    city: "",
+    addresses: "",
+  });
+
+  // address router handler here ----------
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+
+    setAddressFormData({
+      ...addressFormData,
+      [name]: value,
+    });
+  };
+
+  const userSubmitAddressData = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+
+      const userId = user._id;
+
+      const res = await axios.put(
+        `/api/auth/add-address/?id=${userId}`,
+        {
+          userId: userId,
+          city: addressFormData.city,
+          addresses: addressFormData.addresses,
+        }
+      );
+
+      if (res.data.success) {
+        toast.success("Address added successfully!");
+        setAddressFormData({ city: "", addresses: "" });
+        window.location.reload();
+        setShowForm(false);
+      }
+    } catch (error) {
+      console.log(error);
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong!" , error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete particular Address --------------
+  const deleteAddress = async (addressId) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this address?"
+      );
+      if (!confirmDelete) return;
+
+      const userId = user?._id;
+      await axios.delete(
+        `/api/auth/delete-address?userId=${userId}&addressId=${addressId}`
+      );
+      toast.success("Address deleted successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <>
+      <Toaster />
+      <div className="grid grid-cols-5 gap-1 lg:gap-4 max-w-[1100px] m-auto mt-4 px-4">
+        <div className="bg-white col-span-5 shadow-lg lg:col-span-3 relative mt-4 rounded-lg">
+          <Link
+            href="/admin/profile/password"
+            className="absolute cursor-pointer top-6 right-24 border rounded-md text-gray-600 bg-gray-100  border-gray-200 hover:text-indigo-600 hover:bg-gray-50 gap-1 text-sm flex items-center px-3 py-1 transition-all duration-150"
+          >
+            <i className="bx bxs-save"></i>
+            Update
+          </Link>
+          <Link
+            href="/admin/profile/edit"
+            className="absolute cursor-pointer top-6 right-6 border rounded-md text-gray-600 bg-gray-100  border-gray-200 hover:text-indigo-600 hover:bg-gray-50 gap-1 text-sm flex items-center px-3 py-1 transition-all duration-150"
+          >
+            <i className="bx bxs-edit-alt"></i>
+            Edit
+          </Link>
+
+          <div className="shade rounded-lg py-10 flex items-center flex-col justify-center">
+            {user ? (
+              <div>
+                <div className="max-w-full m-auto">
+                  <div className="h-fit w-fit border-[10px] border-[#eeeeee9c] rounded-full max-w-full m-auto">
+                    <img
+                      alt="image here"
+                      src={user.photo || "/user.jpeg"}
+                      className="h-60 w-60 border-[10px] object-cover border-[#c9c9c9cc] rounded-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Full Name ----------------------------------------------- */}
+                <div className="flex items-center justify-center flex-col mt-6">
+                  <h1 className="capitalize text-3xl mb-3 text-slate-800 font-bold tracking-wider">
+                    {user.fullname}
+                  </h1>
+                  <h2 className="text-[#6c757d] text-xs uppercase tracking-wide">
+                    {user.username}
+                  </h2>
+                </div>
+                {/* Inner Divs ----------------------------------------------- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-4">
+                  {/* Email ----------------------------------------------- */}
+                  <div className="px-4 py-2 flex items-center gap-4 shadow-md rounded-lg">
+                    <i className="bx bxs-envelope text-xl text-gray-400"></i>
+                    <div>
+                      <p className="text-xs text-[#00000084] mb-1">Email</p>
+                      <span className="text-[#444] text-sm">{user.email}</span>
+                    </div>
+                  </div>
+                  {/* Phone ----------------------------------------------- */}
+                  <div className="px-4 py-2 flex items-center gap-2 shadow-md rounded-lg">
+                    <i className="bx bxs-phone-call text-xl text-gray-400"></i>
+                    <div>
+                      <p className="text-xs text-[#00000084] mb-1">Phone</p>
+                      <span className="text-[#444] text-sm">
+                        +92 {user.phone}
+                      </span>
+                    </div>
+                  </div>
+                  {/* User Role ---------------------------------------------- */}
+                  <div className="px-4 py-2 flex items-center gap-3 shadow-md rounded-lg">
+                    <i className="bx bxs-user-circle text-2xl text-gray-400"></i>
+                    <div>
+                      <p className="text-xs text-[#00000084] mb-1">User Role</p>
+                      <span className="text-[#444] text-sm">{user.isAdmin ? "Admin" : "User"}</span>
+                    </div>
+                  </div>
+                  {/* Gender ----------------------------------------------- */}
+                  <div className="px-4 py-2 flex items-center gap-3 shadow-md rounded-lg">
+                    <i className="bx bxs-user text-gray-400 text-xl"></i>
+                    <div>
+                      <p className="text-xs text-[#00000084] mb-1">Gender</p>
+                      <span className="text-[#444] text-sm">
+                        {user.gender || "Male"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <span className="text-orange-600 text-2xl">
+                Opps! Profile Not Found...
               </span>
-              <h2 className=" px-5 text-sm -translate-y-2 mb-2 text-slate-700">
-                {user?.userName}
-              </h2>
-            </div>
-            <div className=" border rounded-full">
-              <span className="text-slate-500 text-xs block -translate-y-2 px-5 mb-1 bg-white w-fit">
-                Email
-              </span>
-              <h2 className=" px-5 text-sm -translate-y-2 mb-2 text-slate-700">
-                {user?.email}
-              </h2>
-            </div>
+            )}
           </div>
         </div>
 
-        <div className="lg:col-span-2 rounded-lg lg:px-5 px-0">
-          {/* Cards Here ------------------------- */}
-          <div className="grid grid-cols-2 gap-5">
-            {/* Card 01 --------------------------- */}
-            <div className="bg-white p-4 rounded-lg shadow-md shadow-gray-200 border-dotted">
-              <div className=" flex items-center justify-between">
-                <div>
-                  <h2 className=" text-slate-700 text-sm">Products</h2>
-                  <span className=" text-gray-600 font-semibold text-2xl">
-                    23 +
-                  </span>
+        <div className="bg-white col-span-5 lg:col-span-2 shadow-lg relative my-4 rounded-lg overflow-y-auto">
+          <h1 className="px-4 py-6 text-xl text-gray-700 font-semibold">
+            Your Address Here
+          </h1>
+          <div className=" max-h-[450px] mb-2  overflow-y-auto">
+            {user?.addressDetails.map((v, i) => {
+              return (
+                <div
+                  key={i}
+                  className="border mx-4 rounded-lg p-4 relative overflow-hidden group mb-4"
+                >
+                  <div className=" mb-2">
+                    <span className=" text-gray-400 text-xs">CITY</span>
+                    <h2 className=" text-gray-600">{v.city}</h2>
+                  </div>
+                  <div>
+                    <span className=" text-gray-400 text-xs">ADDRESS</span>
+                    <h2 className=" text-gray-600">{v.addresses}</h2>
+                  </div>
+                  <i
+                    title="Delete This Address"
+                    onClick={() => deleteAddress(v?._id)}
+                    className="bx bx-trash text-orange-400 text-xl absolute top-4 right-4 translate-x-10 group-hover:translate-x-0 transition-all duration-200 cursor-pointer"
+                  ></i>
                 </div>
-                <i className=" bx bxs-package bg-cyan-200 text-cyan-700 p-4 rounded-md"></i>
+              );
+            })}
+          </div>
+          <div className="px-4 my-4">
+            <div
+              onClick={() => setShowForm(true)}
+              className=" flex items-center gap-2 p-2 w-fit rounded-lg shadow-md shadow-orange-100 bg-orange-100 cursor-pointer hover:bg-orange-200 transition"
+            >
+              <i className="bx bx-plus rounded-full h-6 w-6 pt-[3px] flex items-center text-center justify-center bg-orange-500 text-white transition-all duration-150 cursor-pointer text-xl"></i>
+              <span className=" text-orange-500">Add New Address</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          visibility: showForm ? "visible" : "hidden",
+          opacity: showForm ? "1" : "0",
+          transition: ".4s",
+        }}
+        className="fixed z-[100]  top-0 left-0 w-full h-screen border-orange-600 backdrop-blur-[2px] bg-[#00000094] overflow-auto"
+      >
+        <div
+          className={`${
+            showForm ? "scale-100 opacity-100" : "scale-0 opacity-0"
+          } bg-white duration-500 md:mx-auto mx-4 my-8 relative p-4 max-w-xl lg:max-w-4xl border rounded-lg`}
+        >
+          <div className="flex items-center justify-between">
+            <h1 className=" text-xl text-gray-700 font-semibold">
+              Add New Shipping Address
+            </h1>
+            <span onClick={() => setShowForm(false)} className="cursor-pointer">
+              <i className="bx bx-x text-gray-500 text-2xl hover:text-gray-600"></i>
+            </span>
+          </div>
+
+          <form className="space-y-6 mt-4" onSubmit={userSubmitAddressData}>
+            {/* Town / City ----------------------- */}
+            <div>
+              <label
+                htmlFor="city"
+                className="block text-sm leading-6 text-gray-500"
+              >
+                City
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={addressFormData.city}
+                  placeholder="Enter Your City"
+                  onChange={handleAddressChange}
+                  className="border-gray-300 rounded-md px-3 py-2 w-full font-light placeholder:text-gray-400"
+                />
               </div>
             </div>
-            {/* Card 02 --------------------------- */}
-            <div className="bg-white p-4 rounded-lg shadow-sm shadow-gray-200 border-dotted">
-              <div className=" flex items-center justify-between">
-                <div>
-                  <h2 className=" text-slate-700 text-sm">Categories</h2>
-                  <span className=" text-gray-600 font-semibold text-2xl">
-                    12 +
-                  </span>
-                </div>
-                <i className="bx bxs-bar-chart-alt-2 bg-green-200 text-green-700 p-4 rounded-md"></i>
+            {/* New Address  ----------------------- */}
+            <div>
+              <label
+                htmlFor="addresses"
+                className="block text-sm leading-6 text-gray-500"
+              >
+                New Address
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  id="addresses"
+                  name="addresses"
+                  onChange={handleAddressChange}
+                  placeholder="Enter Your Address"
+                  value={addressFormData.addresses}
+                  className="border-gray-300 rounded-md px-3 py-2 w-full font-light placeholder:text-gray-400"
+                />
               </div>
             </div>
-          </div>
-          {/* Bio Section ------------------------ */}
-          <div className="bg-white px-5 py-6 rounded-lg my-5 shadow-sm shadow-gray-200 border-dotted">
-            <h2 className="text-slate-700 font-semibold mb-2">Bio</h2>
-            <p className=" text-slate-500 text-sm leading-[1.5]">
-         {user ? user?.bio :
-              'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora,sint perspiciatis eveniet temporibus doloribus iste rerum itaque,odio a fugiat commodi.'
-            }
-            </p>
+            {/* Button here --------------------- */}
+            <div>
+              <button
+                type="submit"
+                className="rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
+              >
+                {loading ? "Processing..." : "Save"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
 
-          </div>
-          <div className="bg-white px-5 py-6 rounded-lg my-5 shadow-sm shadow-gray-200 border-dotted">
-            <h2 className="text-slate-700 font-semibold mb-2">About Me</h2>
-            <p className=" text-slate-500 text-sm leading-[1.5]">
-         {user ? user?.about :
-              'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora,sint perspiciatis eveniet temporibus doloribus iste rerum itaque,odio a fugiat commodi.'
-            }
-            </p>
-
-          </div>
-
-    </div>
-    </div>
-    </div>
-  )
-}
-
-export default page
+export default index;

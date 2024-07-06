@@ -11,6 +11,7 @@ const categorySchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 const userSchema = new mongoose.Schema(
   {
     userName: {
@@ -42,6 +43,16 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
     },
+    addressDetails: [
+      {
+        city: {
+          type: String,
+        },
+        addresses: {
+          type: String,
+        },
+      },
+    ],
 
     isAdmin: {
       type: Boolean,
@@ -83,11 +94,58 @@ const productsSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+const orderSchema = new mongoose.Schema(
+  {
+    items: [
+      {
+        productID: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "products",
+        },
+        quantity: {
+          type: Number,
+        },
+        unitPrice: {
+          type: Number,
+        },
+      },
+    ],
+    customerDetail: {
+      fullname: String,
+      phone: String,
+      email: String,
+      city: String,
+      address: String,
+    },
+    status: {
+      type: String,
+      default: "Pending",
+      required: true,
+      enum: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"],
+    },
+    paymentStatus: {
+      type: String,
+      default: "Pending",
+      required: true,
+      enum: ["Pending", "Confirmed"],
+    },
+    isLoginUserAddress: {
+      type: String,
+    },
+    hasLoginUserData: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+    remarks: String,
+  },
+  { timestamps: true }
+);
 
 const CategoryModel =
   mongoose.models?.categories || mongoose.model("categories", categorySchema);
 const ProductsModel =
   mongoose.models?.products || mongoose.model("products", productsSchema);
 const userModel = mongoose.models?.users || mongoose.model("users", userSchema);
+const orderModel = mongoose.models?.orders || mongoose.model("orders", orderSchema);
 
-export { CategoryModel, ProductsModel, userModel };
+export { CategoryModel, ProductsModel, userModel , orderModel };

@@ -12,7 +12,7 @@ async function getData() {
 const ProductTable = async () => {
   const data = await getData();
   
-  console.log(data?.message)
+  // console.log(data?.message)
   return (
     <div>
       <div class="relative overflow-x-auto">
@@ -40,7 +40,14 @@ const ProductTable = async () => {
             {data?.message.map((v, i) => {
               return (
                 <tr key={i} className="bg-white border-b">
-                  <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                  <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex items-center">
+                  <div className="w-10 h-10 mr-3 border border-gray-100 rounded-full overflow-hidden">
+                      <img
+                        className="w-full h-full object-contain"
+                        src={v.images[0] || "https://github.com/scriptwithahmad/u-shop-2.0/blob/main/public/user.jpeg?raw=true"}
+                        alt="User Image"
+                      />
+                    </div>
                     {v?.title}
                   </th>
                   <td className="px-6 py-4">{v?.stock}</td>

@@ -22,11 +22,11 @@ const Layout = ({ children }) => {
           </div>
         ) : (
           <div>
-            <div className="">
+            <div className="sticky top-0 z-50">
               <Navbar />
             </div>
             <div>{children}</div>
-            <div className="sticky bottom-0">
+            <div >
               <Footer />
             </div>
           </div>

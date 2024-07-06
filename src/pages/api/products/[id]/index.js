@@ -9,7 +9,8 @@ export default async function handler(req, res) {
       try {
         const id = req.query.id || req.body._id;
 
-        const getSingle = await ProductsModel.findById(id);
+        const getSingle = await ProductsModel.findById(id)
+        .populate("category", "title")
 
         res.status(200).json({
           succcess: true,
