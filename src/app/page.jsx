@@ -116,7 +116,7 @@ const Home = async () => {
               );
             })}
           </section>
-        <div className="flex mt-7 px-12  "><button className="border w-full mx-auto bg-red-500 rounded-xl globalShadow border-red-500   p-3"> All Products</button></div>
+        <div className="flex mt-7 px-12  "><button className="border w-full mx-auto font-bold bg-red-500 rounded-xl globalShadow border-red-500 text-2xl p-3"> <Link href={"/category"}> All Products</Link></button></div>
         </section>
       </div>
     </div>
