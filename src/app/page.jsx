@@ -78,7 +78,7 @@ const Home = async () => {
       {/* product   ....  .. . . . .          .  */}
 
       <div>
-        <h2>Products</h2>
+        <h2 className=" font-extrabold text-2xl mt-11 text-orange-500 ml-5 drop-shadow-lg ">Products</h2>
         <section className="container  mx-auto p-10 md:py-12 px-0 md:p-8 md:px-0">
           <section className=" md:mx-10 p-5 md:p-0 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-7  ">
             {data?.message.map((v, i) => {
@@ -116,6 +116,7 @@ const Home = async () => {
               );
             })}
           </section>
+        <div className="flex mt-7 px-12  "><button className="border w-full mx-auto bg-red-500 rounded-xl globalShadow border-red-500   p-3"> All Products</button></div>
         </section>
       </div>
     </div>

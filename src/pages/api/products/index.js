@@ -19,7 +19,7 @@ export default async function handler(req, res) {
           });
         }
 
-        var products = await ProductsModel.find(match, { seo: 0 }).limit(4)
+        var products = await ProductsModel.find(match, { seo: 0 }).limit(8)
           .populate("category", "title")
           .sort({ createdAt: -1 });
         res.send({
