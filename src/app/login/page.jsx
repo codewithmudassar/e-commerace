@@ -96,14 +96,15 @@ const Page = () => {
         </button>
       </form>
       <p className="mt-8 text-center text-sm text-gray-500">
-        Don't Have an Account?&nbsp;
-        <Link
-          href="/register"
-          className="leading-6 text-orange-500 hover:text-orange-600"
-        >
-          Sign up
-        </Link>
-      </p>
+  Don&apos;t Have an Account?&nbsp;
+  <Link
+    href="/register"
+    className="leading-6 text-orange-500 hover:text-orange-600"
+  >
+    Sign up
+  </Link>
+</p>
+
     </div>
   );
 };

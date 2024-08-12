@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function BackButton() {
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -14,7 +15,6 @@ export default function BackButton() {
     return null; // Render nothing until the component has mounted
   }
 
-  const router = useRouter();
 
   return (
     <button aria-label="Go back" type="button" onClick={() => router.back()}>

@@ -51,9 +51,10 @@ const Home = async () => {
       <div className="flex border w-11/12 h-12 bg-white m-auto mt-10">
         <div className="flex-1 mt-3 ml-1">
           <div className="overflow-hidden text-left whitespace-nowrap animate-marquee">
-            <p>
-              At this store, you can purchase a wide variety of items to meet all your needs. From everyday essentials and household goods to electronics, clothing, and unique gifts, our diverse selection ensures you'll find exactly what you're looking for. Whether you're shopping for yourself or searching for the perfect present, we have something for everyone. Enjoy the convenience of one-stop shopping with our extensive range of high-quality products.
-            </p>
+          <p>
+  At this store, you can purchase a wide variety of items to meet all your needs. From everyday essentials and household goods to electronics, clothing, and unique gifts, our diverse selection ensures you&apos;ll find exactly what you&apos;re looking for. Whether you&apos;re shopping for yourself or searching for the perfect present, we have something for everyone. Enjoy the convenience of one-stop shopping with our extensive range of high-quality products.
+</p>
+ 
           </div>
         </div>
       </div>
