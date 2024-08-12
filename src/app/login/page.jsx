@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,13 +30,10 @@ const Page = () => {
       });
       console.log("Login successful: ", response.data);
       toast.success("User Logged In");
-      router.back();
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // Redirect to home page or dashboard
+      router.push("/dashboard"); // Change to the desired path
     } catch (error) {
       console.error("Login error: ", error);
-      console.log(error);
       const errorMessage =
         error?.response?.data?.message || "Something went wrong!";
       toast.error(errorMessage);

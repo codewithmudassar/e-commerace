@@ -1,16 +1,17 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from "axios";
 
-const page = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
     email: "",
     fullName: "",
-    isAdmin: "",
+    phone: "",
+    isAdmin: false,
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -18,8 +19,11 @@ const page = () => {
   const router = useRouter();
 
   function changeHandler(e) {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   }
 
   async function handleSubmit(e) {
@@ -98,18 +102,6 @@ const page = () => {
             <label htmlFor="fullName" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full name</label>
           </div>
         </div>
-        {/* <div className="relative z-0 w-full mb-5 group">
-          <input
-            onChange={changeHandler}
-            type="text"
-            name="isAdmin"
-            id="isAdmin"
-            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            required
-          />
-          <label htmlFor="isAdmin" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Admin</label>
-        </div> */}
         <div className="relative z-0 w-full mb-5 group">
           <input
             onChange={changeHandler}
@@ -128,22 +120,22 @@ const page = () => {
           className="text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           disabled={loading}
         >
-          {loading ? "processing..." : "sign up"}
+          {loading ? "Processing..." : "Sign Up"}
         </button>
-        {success && <p className="mt-2 text-green-600">{success}</p>}
-        {error && <p className="mt-2 text-red-600">{error}</p>}
+        {success && <p className="mt-2 text-green-600" aria-live="polite">{success}</p>}
+        {error && <p className="mt-2 text-red-600" aria-live="polite">{error}</p>}
       </form>
       <p className="mt-10 text-center text-sm text-gray-500">
-            Already Have an Account /
-            <Link
-              href="/login"
-              className="leading-6 text-orange-500 hover:text-orange-600"
-            >
-              {" "}
-              Sign In
-            </Link></p>
+        Already Have an Account /
+        <Link
+          href="/login"
+          className="leading-6 text-orange-500 hover:text-orange-600"
+        >
+          {" "}Sign In
+        </Link>
+      </p>
     </div>
   );
 }
 
-export default page;
+export default Register;
