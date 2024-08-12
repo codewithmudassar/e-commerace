@@ -9,11 +9,11 @@ import { AuthContext } from "@/context/AuthContext";
 
 const index = () => {
   const router = useRouter();
+  const { user, refetch } = useContext(AuthContext);
+  const { cartItems, clearCart } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const { user, refetch } = useContext(AuthContext);
   const userId = user?._id;
-  const { cartItems, clearCart } = useContext(CartContext);
 //   const [showFormForAddress, setShowFormForAddress] = useState(false);
 
   // Calculate total price
