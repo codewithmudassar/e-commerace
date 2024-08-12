@@ -141,11 +141,11 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const CategoryModel =
-  mongoose.models?.categories || mongoose.model("categories", categorySchema);
-const ProductsModel =
-  mongoose.models?.products || mongoose.model("products", productsSchema);
+const CategoryModel = mongoose.models?.categories || mongoose.model("categories", categorySchema);
+const ProductsModel = mongoose.models?.products || mongoose.model("products", productsSchema);
+
 const userModel = mongoose.models?.users || mongoose.model("users", userSchema);
+
 const orderModel = mongoose.models?.orders || mongoose.model("orders", orderSchema);
 
 export { CategoryModel, ProductsModel, userModel , orderModel };

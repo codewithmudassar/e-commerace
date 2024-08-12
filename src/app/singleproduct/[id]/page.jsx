@@ -173,7 +173,7 @@ const Page = ({ params }) => {
       <div className="globalShadow rounded-xl p-5">
         <h2 className="text-2xl font-extrabold drop-shadow-lg mb-2">Describtion</h2><hr />
       <div
-        className="text-justify mr-5 indent-10 tracking-wide mt-7"
+        className="text-justify md:mr-5 text-xs md:text-xl md:indent-10 tracking-wide md:mt-7"
         dangerouslySetInnerHTML={createMarkup(product.desc)}
       />
     </div>

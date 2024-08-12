@@ -121,6 +121,7 @@ const Index = () => {
     status: "",
     message: "",
   });
+  
 
   // Update status remarks change handler
   const changeHandler = (e) => {
@@ -150,6 +151,8 @@ const Index = () => {
       setLoading(false);
     }
   };
+  
+// console.log(productData)
 
   return (
     <>
@@ -224,7 +227,7 @@ const Index = () => {
                             <img
                               key={index}
                               alt={`Image ${index + 1}`}
-                              src={item?.productID?.images[0] || null}
+                              src={item?.productID?.images[0] || "https://atlas-content-cdn.pixelsquid.com/stock-images/question-mark-logo-XlE35J8-600.jpg"}
                               className="w-8 h-8 border-2 border-white rounded-full bg-gray-200 hover:-translate-x-2 transition-all"
                             />
                           )
@@ -238,7 +241,7 @@ const Index = () => {
                         </a>
                       )}
                     </div>
-                    {v.items[0]?.productID?.title.slice(0, 18) + "..."}
+                    {v.items[1]?.productID?.title.slice(0, 18) + "..."}
                   </td>
                   {/* Costomer Details ---------------------------- */}
                   <td className="px-6 py-2">
@@ -298,9 +301,9 @@ const Index = () => {
           </tbody>
         </table>
         {/* Pagination start  ----------- */}
-        <div className=" flex items-center justify-end pr-10 gap-5 w-full py-5 border-b border-gray-100 bg-gray-50">
+        {/* <div className=" flex items-center justify-end pr-10 gap-5 w-full py-5 border-b border-gray-100 bg-gray-50">
           <span className=" whitespace-nowrap flex items-center justify-center text-sm text-slate-500">
-            {/* {pageCount} to {end} of {total} */}
+            {pageCount} to {end} of {total}
             {productData?.page} of {productData?.ending} to{" "}
             {productData?.TotalProducts}
           </span>
@@ -333,7 +336,7 @@ const Index = () => {
               }`}
             ></i>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
 
@@ -355,7 +358,7 @@ const Index = () => {
           onClick={() => setShowModal(false)}
           className="cursor-pointer h-8 w-8"
         >
-          <i className="bxShadow h-8 w-8 flex items-center justify-center absolute top-[12px] p-1 text-white hover:text-gray-900 -right-[0px] bg-gray-400 z-20 hover:bg-gray-100 rounded-full cursor-pointer text-2xl pl-[4px] px bx bx-x"></i>
+          <i className="bxShadow h-8 w-8 flex items-center justify-center absolute top-[12px] p-1 text-white hover:text-gray-900 -right-[0px] bg-red-600 z-20 hover:bg-red-500 rounded-full cursor-pointer text-2xl pl-[4px] px bx bx-x"></i>
         </span>
         <div className="mt-3 rounded-lg bg-white backdrop-blur-sm p-4">
           <span className=" text-xl text-slate-800 font-semibold mb-4">
@@ -367,13 +370,14 @@ const Index = () => {
                 <img
                   key={index}
                   alt={`Image ${index + 1}`}
-                  src={item?.productID?.images[0] || null}
+                  src={item?.productID?.images[0] || "https://atlas-content-cdn.pixelsquid.com/stock-images/question-mark-logo-XlE35J8-600.jpg"}
                   className=" w-28 h-32 bg-contain rounded-md bg-gray-200"
                 />
                 <h2 className=" text-gray-500 text-sm">
                   {" "}
                   {item?.productID?.title}
                 </h2>
+                {/* <p>{item?.quantity}</p> */}
               </>
             ))}
           </div>
@@ -463,7 +467,7 @@ const Index = () => {
           onClick={() => setUpdateModalData(false)}
           className="cursor-pointer h-8 w-8"
         >
-          <i className="bxShadow h-8 w-8 flex items-center justify-center absolute top-[12px] p-1 text-white hover:text-gray-900 -right-[0px] bg-gray-400 z-20 hover:bg-gray-100 rounded-full cursor-pointer text-2xl pl-[4px] bx bx-x"></i>
+          <i className="bxShadow h-8 w-8 flex items-center justify-center absolute top-[12px] p-1 text-white hover:text-gray-900 -right-[0px] bg-red-600 z-20 hover:bg-red-500 rounded-full cursor-pointer text-2xl pl-[4px] bx bx-x"></i>
         </span>
         <div className="mt-3 rounded-lg bg-white backdrop-blur-sm p-4">
           <span className=" text-xl text-slate-800 font-semibold mb-4">

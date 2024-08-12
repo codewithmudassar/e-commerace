@@ -32,7 +32,7 @@ const ProductTable = async () => {
                 Price
               </th>
               <th scope="col" class="px-6 py-3">
-                Delete/Edit
+                Actions
               </th>
             </tr>
           </thead>

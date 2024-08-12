@@ -106,7 +106,7 @@ const index = () => {
                   <div className="h-fit w-fit border-[10px] border-[#eeeeee9c] rounded-full max-w-full m-auto">
                     <img
                       alt="image here"
-                      src={user.photo || "/user.jpeg"}
+                      src={user.photo || "https://i0.wp.com/static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg?ssl=1"}
                       className="h-60 w-60 border-[10px] object-cover border-[#c9c9c9cc] rounded-full"
                     />
                   </div>
@@ -115,10 +115,10 @@ const index = () => {
                 {/* Full Name ----------------------------------------------- */}
                 <div className="flex items-center justify-center flex-col mt-6">
                   <h1 className="capitalize text-3xl mb-3 text-slate-800 font-bold tracking-wider">
-                    {user.fullname}
+                    {user.fullName}
                   </h1>
                   <h2 className="text-[#6c757d] text-xs uppercase tracking-wide">
-                    {user.username}
+                    {user.userName}
                   </h2>
                 </div>
                 {/* Inner Divs ----------------------------------------------- */}
@@ -227,7 +227,7 @@ const index = () => {
               Add New Shipping Address
             </h1>
             <span onClick={() => setShowForm(false)} className="cursor-pointer">
-              <i className="bx bx-x text-gray-500 text-2xl hover:text-gray-600"></i>
+              <i className="bx bx-x text-gray-500 text-3xl hover:text-red-600"></i>
             </span>
           </div>
 
@@ -284,6 +284,7 @@ const index = () => {
           </form>
         </div>
       </div>
+      
     </>
   );
 };

@@ -78,14 +78,14 @@ const Home = async () => {
       {/* product   ....  .. . . . .          .  */}
 
       <div>
-        <h2 className=" font-extrabold text-2xl mt-11 text-orange-500 ml-5 drop-shadow-lg ">Products</h2>
+        <h2 className=" font-extrabold text-2xl mt-11 text-orange-500 ml-5 drop-shadow-lg ">New Products</h2>
         <section className="container  mx-auto p-10 md:py-12 px-0 md:p-8 md:px-0">
           <section className=" md:mx-10 p-5 md:p-0 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-7  ">
             {data?.message.map((v, i) => {
               return (
                 <Link
                   href={`/singleproduct/${v._id}`}
-                  className=" mx-3 bg-orange-100  rounded-lg overflow-hidden shadow-lg max-w-sm transform duration-500 hover:-translate-y-2"
+                  className=" mx-3 bg-gray-100  rounded-lg overflow-hidden shadow-lg max-w-sm transform duration-500 hover:-translate-y-2"
                 >
                   <div className="relative">
                     <img
@@ -99,13 +99,13 @@ const Home = async () => {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="text-lg font-medium mb-2 hover:text-orange-500">{v?.title}</h3>
+                    <h3 className="text-lg font-medium mb-2 hover:text-orange-500 line-clamp-1">{v?.title}</h3>
                     {/* <div
                       className=" text-xs line-clamp-2"
                       dangerouslySetInnerHTML={createMarkup(v?.desc)}
                     /> */}
-                    <div className="flex items-center justify-between mt-2 ">
-                      <div className=" px-2 border-2 border-orange-200 rounded-md">{v?.category?.title}</div>
+                    <div className="flex items-center justify-between mt-5 ">
+                      <div className=" px-2 border-2 border-orange-200 rounded-md ">{v?.category?.title}</div>
                       <span className="font-bold text-lg "> RS.{v.price}</span>
                       {/* <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                         Add to cart

@@ -19,12 +19,6 @@ const Sidebar = () => {
       sIcon: "bx bxs-home",
     },
     {
-      label: "profile",
-      href: "/admin/profile",
-      icon: "bx bx-user",
-      sIcon: "bx bxs-user",
-    },
-    {
       label: "Orders",
       href: "/admin/order",
       icon: "bx bx-cart",
@@ -66,7 +60,7 @@ const Sidebar = () => {
         }`}
       >
         <div className="flex justify-between items-center">
-                    <div className="flex  items-center">
+                    <Link href={"/"} className="flex  items-center">
                       <img
                         className={`w-20 transition-all duration-300 ${
                           isExpanded ? "block" : "w-16 mt-4"
@@ -76,7 +70,7 @@ const Sidebar = () => {
 
                       />
             <span className={`text-xl font-bold text-orange-500 ${ isExpanded ? "block" : "hidden"}`}>-Shop</span>
-          </div>
+          </Link>
           {/* <Image
             src="/logo2.png"
             width={50}
@@ -91,9 +85,7 @@ const Sidebar = () => {
           {sidebarLinks.map((v, i) => (
             <Link
               key={i}
-              className={`flex p-2 gap-2 border rounded-md items-center ${
-                pathname === v.href ? "bg-orange-200" : ""
-              }`}
+              className={`flex p-2 gap-2 border rounded-md items-center ${pathname === v.href ? "bg-orange-200" : ""}`}
               href={v.href}
             >
               <i

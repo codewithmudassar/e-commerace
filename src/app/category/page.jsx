@@ -119,7 +119,7 @@ export default function Categories({ data }) {
             </div>
           </div>
           <div className="flex gap-4 flex-col md:flex-row">
-            <aside className={`border hover:bg-[#dddde61c] rounded-lg p-2 overflow-hidden`}>
+            <aside className={`border  hover:bg-[#dddde61c] rounded-lg p-2 overflow-hidden`}>
               <div className="border-b mb-3">
                 <h2 className="px-2 text-xl my-2 font-medium tracking-wider text-orange-500">
                   Filter Products
@@ -177,56 +177,61 @@ export default function Categories({ data }) {
                 </div>
               </div>
             </aside>
-            <div className="grid flex-1 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 2xl:grid-cols-4 gap-2 h-full border-[1px] rounded-lg p-4">
-              {loading ? (
-                <div className="text-center my-10">
-                  <p>Loading...</p>
-                </div>
-              ) : filteredProductsByPrice?.length === 0 ? (
-                <h1 className="text-gray-500 my-10 whitespace-nowrap">
-                  Oops! Products Not Found.
-                </h1>
-              ) : (
-                filteredProductsByPrice?.map((product, index) => (
-                  <div
-                    key={index}
-                    className="relative group border rounded-lg overflow-hidden"
-                  >
-                    <div>
-                      <div className="w-full h-[200px] bg-gray-50">
-                        <Link href={`/singleproduct/${product._id}`}>
-                          <img
-                            alt="Product Image"
-                            src={product.images[0]}
-                            className="h-full w-full object-contain mix-blend-multiply cursor-pointer"
-                          />
-                        </Link>
-                      </div>
-                      <div className="p-2 my-4">
-                        <Link href={`/singleproduct/${product._id}`}>
-                          <h2 className="text-sm mb-3 line-clamp-1 font-bold text-slate-700 hover:text-slate-900">
-                            {product.title}
-                          </h2>
-                        </Link>
-                        <div className="flex justify-between items-center">
-                          <h2 className="text-xs border border-orange-200 w-fit p-[4px] px-3 rounded-md text-orange-400 font-light">
-                            {product?.category?.title}
-                          </h2>
-                          <h2 className="text-sm w-fit p-1 px-3 rounded-md text-slate-500">
-                            Pkr/- {product.price}
-                          </h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-gray-600 bg-[#dadada80] p-2 rounded-md flex flex-col gap-2 absolute top-2 right-0 translate-x-12 transition-all duration-700 group-hover:-translate-x-2">
-                      <Link href={`/singleproduct/${product._id}`}>
-                        <i className="bx bx-low-vision hover:text-orange-500 bg-white rounded-md p-1 transition duration-200 cursor-pointer"></i>
-                      </Link>
-                    </div>
-                  </div>
-                ))
-              )}
+            <div className=" shadow-inner  shadow-gray-5 grid flex-1 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 2xl:grid-cols-4 gap-2  border-[1px] rounded-lg p-4 overflow-y-auto">
+  {loading ? (
+    <div className="text-center my-10">
+      <p>Loading...</p>
+    </div>
+  ) : filteredProductsByPrice?.length === 0 ? (
+    <h1 className="text-gray-500 my-10 whitespace-nowrap">
+      Oops! Products Not Found.
+    </h1>
+  ) : (
+    filteredProductsByPrice?.map((product, index) => (
+      <div
+        key={product._id}
+        className="relative group border rounded-lg overflow-hidden"
+      >
+        <div>
+          <div className="w-full h-[200px] bg-gray-50">
+            <Link href={`/singleproduct/${product._id}`}>
+            <img
+                      className="w-full h-56"
+                      // src="https://images.pexels.com/photos/7989741/pexels-photo-7989741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      src={
+                        product?.images[0]  ||
+                        "https://images.pexels.com/photos/7989741/pexels-photo-7989741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+                      }
+                      alt={product.title}
+                    />
+            </Link>
+          </div>
+          <div className="p-2 my-4">
+            <Link href={`/singleproduct/${product._id}`}>
+              <h2 className="text-sm mb-3 line-clamp-1 font-bold text-slate-700 hover:text-slate-900">
+                {product.title}
+              </h2>
+            </Link>
+            <div className="flex justify-between items-center">
+              <h2 className="text-xs border border-orange-200 w-fit p-[4px] px-3 rounded-md text-orange-400 font-light">
+                {product?.category?.title}
+              </h2>
+              <h2 className="text-sm w-fit p-1 px-3 rounded-md text-slate-500">
+                Pkr/- {product.price}
+              </h2>
             </div>
+          </div>
+        </div>
+        <div className="text-gray-600 bg-[#dadada80] p-2 rounded-md flex flex-col gap-2 absolute top-2 right-0 translate-x-12 transition-all duration-700 group-hover:-translate-x-2">
+          <Link href={`/singleproduct/${product._id}`}>
+            <i className="bx bx-low-vision hover:text-orange-500 bg-white rounded-md p-1 transition duration-200 cursor-pointer"></i>
+          </Link>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
           </div>
         </main>
       </div>

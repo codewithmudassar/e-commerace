@@ -8,8 +8,10 @@ import Link from "next/link";
 import { CartContext } from "@/context/CartProvider";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, refetch } = useContext(AuthContext);
   const { cartItems } = useContext(CartContext);
@@ -38,7 +40,7 @@ const Navbar = () => {
     <div>
       <Toaster />
 
-      <nav className="bg-gray-100 border-gray-200">
+      <nav className="bg-gray-100 bg-opacity-90 border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div className="flex  items-center">
           <Image
@@ -55,7 +57,7 @@ const Navbar = () => {
               data-collapse-toggle="navbar-search"
               aria-controls="navbar-search"
               aria-expanded={menuOpen ? "true" : "false"}
-              className="md:hidden text-gray-500 hover:bg-orange-100 focus:outline-none focus:ring-4 focus:ring-orange-200 rounded-lg text-sm p-2.5 me-1"
+              className="md:hidden border bg-gray-50 text-gray-500  border-gray-50 rounded-lg px-2 py-1 globalShadow text-lg  me-1"
               onClick={toggleMenu}
             >
               {!menuOpen ? (
@@ -64,7 +66,7 @@ const Navbar = () => {
                 <i className="bx bx-x w-5 h-4 text-xl text-gray-500"></i>
               )}
             </button>
-            <div className="relative hidden md:block">
+            {/* <div className="relative hidden md:block">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <i className="bx bx-search w-5 h-5 text-gray-500"></i>
               </div>
@@ -74,7 +76,7 @@ const Navbar = () => {
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Search..."
               />
-            </div>
+            </div> */}
           </div>
           {/* className={`transition-all duration-500 ease-in-out items-center justify-between ${menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'} overflow-hidden w-full md:flex md:w-auto md:order-1`} */}
           <div
@@ -83,7 +85,7 @@ const Navbar = () => {
             } overflow-hidden w-full md:flex md:w-auto md:order-1`}
             id="navbar-search"
           >
-            <div className="relative mt-3 md:hidden">
+            {/* <div className="relative mt-3 md:hidden">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <i className="bx bx-search w-4 h-4 text-gray-500"></i>
               </div>
@@ -93,12 +95,12 @@ const Navbar = () => {
                 className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-orange-300 focus:border-orange-300"
                 placeholder="Search..."
               />
-            </div>
+            </div> */}
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-gray-100">
               <li>
                 <Link
                   href="/"
-                  className="block py-2 px-3 text-gray-900 hover:bg-orange-100 rounded md:hover:bg-transparent md:hover:text-orange-500 md:p-0p focus:text-orange-500"
+                  className={`block py-2 px-3 text-gray-900 hover:bg-orange-100 rounded md:hover:bg-transparent ${pathname === "/" ? "text-orange-600 font-bold" : ""} md:hover:text-orange-500 md:p-0p active:text-orange-500`}
                   aria-current="page"
                 >
                   Home
@@ -107,11 +109,22 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/about"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-orange-100 md:hover:bg-transparent md:hover:text-orange-500 md:p-0p focus:text-orange-500"
+                  className={`block py-2 px-3 text-gray-900 hover:bg-orange-100 rounded md:hover:bg-transparent ${pathname === "/about" ? "text-orange-600 font-bold" : ""} md:hover:text-orange-500 md:p-0p active:text-orange-500`}
+                  aria-current="page"
                 >
                   About
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/category"
+                  className={`block py-2 px-3 text-gray-900 hover:bg-orange-100 rounded md:hover:bg-transparent ${pathname === "/category" ? "text-orange-600 font-bold" : ""} md:hover:text-orange-500 md:p-0p active:text-orange-500`}
+                  aria-current="page"
+                >
+                  Shop
+                </Link>
+              </li>
+
               <div>
                 {user ? null : (
                   <li>

@@ -116,7 +116,7 @@ const Index = ({ users: initialUsers, start, end, total, page }) => {
                   className="relative border border-gray-200 text-gray-400 text-sm pl-3 px-2 py-[6px] lg:w-[12vw] w-[25vw] rounded-full focus:ring-2 transition-colors focus:outline-none focus:text-gray-400"
                 />
                 {loading && (
-                  <i className="fa-solid fa-spinner absolute top-[30%] right-3 text-xs text-gray-500"></i>
+                  <i className="bx bx-search absolute top-[30%] right-3 text-xs text-gray-500"></i>
                 )}
               </div>
               <i
@@ -149,7 +149,7 @@ const Index = ({ users: initialUsers, start, end, total, page }) => {
                     <div className="w-10 h-10 mr-3 border border-gray-100 rounded-full overflow-hidden">
                       <img
                         className="w-full h-full object-contain"
-                        src={user.photo || "https://github.com/scriptwithahmad/u-shop-2.0/blob/main/public/user.jpeg?raw=true"}
+                        src={user.photo || "https://i0.wp.com/static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg?ssl=1"}
                         alt="User Image"
                       />
                     </div>
