@@ -64,14 +64,9 @@ const Home = async () => {
           <marquee behavior="loop" direction="left">
             {" "}
             <p>
-              At this store, you can purchase a wide variety of items to meet
-              all your needs. From everyday essentials and household goods to
-              electronics, clothing, and unique gifts, our diverse selection
-              ensures you'll find exactly what you're looking for. Whether
-              you're shopping for yourself or searching for the perfect present,
-              we have something for everyone. Enjoy the convenience of one-stop
-              shopping with our extensive range of high-quality products.
-            </p>
+  At this store, you can purchase a wide variety of items to meet all your needs. From everyday essentials and household goods to electronics, clothing, and unique gifts, our diverse selection ensures you&apos;ll find exactly what you&apos;re looking for. Whether you&apos;re shopping for yourself or searching for the perfect present, we have something for everyone. Enjoy the convenience of one-stop shopping with our extensive range of high-quality products.
+</p>
+
           </marquee>
         </div>
       </div>
@@ -84,6 +79,7 @@ const Home = async () => {
             {data?.message.map((v, i) => {
               return (
                 <Link
+                key={i}
                   href={`/singleproduct/${v._id}`}
                   className=" mx-3 bg-gray-100  rounded-lg overflow-hidden shadow-lg max-w-sm transform duration-500 hover:-translate-y-2"
                 >
