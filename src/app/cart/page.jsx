@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/CartProvider";
 import Link from "next/link";
 
-const ShoppingCart = () => {
+const Index = () => {
   const router = useRouter();
   const [value, setValue] = useState(1);
 
@@ -64,7 +64,7 @@ const ShoppingCart = () => {
               <>
                 {cartItems.map((v, i) => {
                   return (
-                    <div className="grid grid-cols-3 lg:grid-cols-6 items-center lg:justify-center lg:items-center place-content-center border-b border-b-slate-200 md:pb-4 md:my-3">
+                    <div key={1} className="grid grid-cols-3 lg:grid-cols-6 items-center lg:justify-center lg:items-center place-content-center border-b border-b-slate-200 md:pb-4 md:my-3">
                       <div className="flex items-center gap-4 col-span-3">
                         <img
                           height={200}
@@ -169,7 +169,7 @@ const ShoppingCart = () => {
                 <>
                   {cartItems.map((v, i) => {
                     return (
-                      <div className=" flex  mb-4 pb-4 border-black border-b-[3px]">
+                      <div key={1} className=" flex  mb-4 pb-4 border-black border-b-[3px]">
                         <div className="text-md text-[#000000b0] w-2/4 ">
                           {v.title}
                         </div>
@@ -198,4 +198,4 @@ const ShoppingCart = () => {
   );
 };
 
-export default ShoppingCart;
+export default Index;

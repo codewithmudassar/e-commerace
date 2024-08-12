@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/CartProvider";
 import { AuthContext } from "@/context/AuthContext";
 
-const index = () => {
+const Index = () => {
   const router = useRouter();
   const { user, refetch } = useContext(AuthContext);
   const { cartItems, clearCart } = useContext(CartContext);
@@ -464,4 +464,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

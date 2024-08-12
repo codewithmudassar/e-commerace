@@ -1,5 +1,5 @@
 import dbConnect from "@/backend/dbConnect";
-import users from "@/backend/models";
+import { userModel } from "@/backend/models";
 
 export default async function handler(req, res) {
   dbConnect();
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const addressId = req.params.addressId;
 
     // Find the user by ID
-    const user = await users.findById(userId);
+    const user = await userModel.findById(userId);
 
     if (!user) {
       return res

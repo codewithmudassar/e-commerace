@@ -1,25 +1,24 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import axios from "axios";
 
-const index = () => {
+const Index = () => { // Changed function name to start with uppercase
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
-  // adding new address here ------------
+  // Adding new address here
   const [addressFormData, setAddressFormData] = useState({
     city: "",
     addresses: "",
   });
 
-  // address router handler here ----------
+  // Address router handler here
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
-
     setAddressFormData({
       ...addressFormData,
       [name]: value,
@@ -30,7 +29,6 @@ const index = () => {
     e.preventDefault();
     try {
       setLoading(true);
-
       const userId = user._id;
 
       const res = await axios.put(
@@ -53,25 +51,21 @@ const index = () => {
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
-        toast.error("Something went wrong!" , error);
+        toast.error("Something went wrong!", error);
       }
     } finally {
       setLoading(false);
     }
   };
 
-  // Delete particular Address --------------
+  // Delete particular Address
   const deleteAddress = async (addressId) => {
     try {
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this address?"
-      );
+      const confirmDelete = window.confirm("Are you sure you want to delete this address?");
       if (!confirmDelete) return;
 
       const userId = user?._id;
-      await axios.delete(
-        `/api/auth/delete-address?userId=${userId}&addressId=${addressId}`
-      );
+      await axios.delete(`/api/auth/delete-address?userId=${userId}&addressId=${addressId}`);
       toast.success("Address deleted successfully");
       window.location.reload();
     } catch (error) {
@@ -86,14 +80,14 @@ const index = () => {
         <div className="bg-white col-span-5 shadow-lg lg:col-span-3 relative mt-4 rounded-lg">
           <Link
             href="/admin/profile/password"
-            className="absolute cursor-pointer top-6 right-24 border rounded-md text-gray-600 bg-gray-100  border-gray-200 hover:text-indigo-600 hover:bg-gray-50 gap-1 text-sm flex items-center px-3 py-1 transition-all duration-150"
+            className="absolute cursor-pointer top-6 right-24 border rounded-md text-gray-600 bg-gray-100 border-gray-200 hover:text-indigo-600 hover:bg-gray-50 gap-1 text-sm flex items-center px-3 py-1 transition-all duration-150"
           >
             <i className="bx bxs-save"></i>
             Update
           </Link>
           <Link
             href="/admin/profile/edit"
-            className="absolute cursor-pointer top-6 right-6 border rounded-md text-gray-600 bg-gray-100  border-gray-200 hover:text-indigo-600 hover:bg-gray-50 gap-1 text-sm flex items-center px-3 py-1 transition-all duration-150"
+            className="absolute cursor-pointer top-6 right-6 border rounded-md text-gray-600 bg-gray-100 border-gray-200 hover:text-indigo-600 hover:bg-gray-50 gap-1 text-sm flex items-center px-3 py-1 transition-all duration-150"
           >
             <i className="bx bxs-edit-alt"></i>
             Edit
@@ -105,14 +99,14 @@ const index = () => {
                 <div className="max-w-full m-auto">
                   <div className="h-fit w-fit border-[10px] border-[#eeeeee9c] rounded-full max-w-full m-auto">
                     <img
-                      alt="image here"
+                      alt="User Photo"
                       src={user.photo || "https://i0.wp.com/static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg?ssl=1"}
                       className="h-60 w-60 border-[10px] object-cover border-[#c9c9c9cc] rounded-full"
                     />
                   </div>
                 </div>
 
-                {/* Full Name ----------------------------------------------- */}
+                {/* Full Name */}
                 <div className="flex items-center justify-center flex-col mt-6">
                   <h1 className="capitalize text-3xl mb-3 text-slate-800 font-bold tracking-wider">
                     {user.fullName}
@@ -121,9 +115,9 @@ const index = () => {
                     {user.userName}
                   </h2>
                 </div>
-                {/* Inner Divs ----------------------------------------------- */}
+                {/* Inner Divs */}
                 <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-4">
-                  {/* Email ----------------------------------------------- */}
+                  {/* Email */}
                   <div className="px-4 py-2 flex items-center gap-4 shadow-md rounded-lg">
                     <i className="bx bxs-envelope text-xl text-gray-400"></i>
                     <div>
@@ -131,17 +125,15 @@ const index = () => {
                       <span className="text-[#444] text-sm">{user.email}</span>
                     </div>
                   </div>
-                  {/* Phone ----------------------------------------------- */}
+                  {/* Phone */}
                   <div className="px-4 py-2 flex items-center gap-2 shadow-md rounded-lg">
                     <i className="bx bxs-phone-call text-xl text-gray-400"></i>
                     <div>
                       <p className="text-xs text-[#00000084] mb-1">Phone</p>
-                      <span className="text-[#444] text-sm">
-                        +92 {user.phone}
-                      </span>
+                      <span className="text-[#444] text-sm">+92 {user.phone}</span>
                     </div>
                   </div>
-                  {/* User Role ---------------------------------------------- */}
+                  {/* User Role */}
                   <div className="px-4 py-2 flex items-center gap-3 shadow-md rounded-lg">
                     <i className="bx bxs-user-circle text-2xl text-gray-400"></i>
                     <div>
@@ -149,61 +141,50 @@ const index = () => {
                       <span className="text-[#444] text-sm">{user.isAdmin ? "Admin" : "User"}</span>
                     </div>
                   </div>
-                  {/* Gender ----------------------------------------------- */}
+                  {/* Gender */}
                   <div className="px-4 py-2 flex items-center gap-3 shadow-md rounded-lg">
                     <i className="bx bxs-user text-gray-400 text-xl"></i>
                     <div>
                       <p className="text-xs text-[#00000084] mb-1">Gender</p>
-                      <span className="text-[#444] text-sm">
-                        {user.gender || "Male"}
-                      </span>
+                      <span className="text-[#444] text-sm">{user.gender || "Male"}</span>
                     </div>
                   </div>
                 </div>
               </div>
             ) : (
-              <span className="text-orange-600 text-2xl">
-                Opps! Profile Not Found...
-              </span>
+              <span className="text-orange-600 text-2xl">Opps! Profile Not Found...</span>
             )}
           </div>
         </div>
 
         <div className="bg-white col-span-5 lg:col-span-2 shadow-lg relative my-4 rounded-lg overflow-y-auto">
-          <h1 className="px-4 py-6 text-xl text-gray-700 font-semibold">
-            Your Address Here
-          </h1>
-          <div className=" max-h-[450px] mb-2  overflow-y-auto">
-            {user?.addressDetails.map((v, i) => {
-              return (
-                <div
-                  key={i}
-                  className="border mx-4 rounded-lg p-4 relative overflow-hidden group mb-4"
-                >
-                  <div className=" mb-2">
-                    <span className=" text-gray-400 text-xs">CITY</span>
-                    <h2 className=" text-gray-600">{v.city}</h2>
-                  </div>
-                  <div>
-                    <span className=" text-gray-400 text-xs">ADDRESS</span>
-                    <h2 className=" text-gray-600">{v.addresses}</h2>
-                  </div>
-                  <i
-                    title="Delete This Address"
-                    onClick={() => deleteAddress(v?._id)}
-                    className="bx bx-trash text-orange-400 text-xl absolute top-4 right-4 translate-x-10 group-hover:translate-x-0 transition-all duration-200 cursor-pointer"
-                  ></i>
+          <h1 className="px-4 py-6 text-xl text-gray-700 font-semibold">Your Address Here</h1>
+          <div className="max-h-[450px] mb-2 overflow-y-auto">
+            {user?.addressDetails.map((v, i) => (
+              <div key={i} className="border mx-4 rounded-lg p-4 relative overflow-hidden group mb-4">
+                <div className="mb-2">
+                  <span className="text-gray-400 text-xs">CITY</span>
+                  <h2 className="text-gray-600">{v.city}</h2>
                 </div>
-              );
-            })}
+                <div>
+                  <span className="text-gray-400 text-xs">ADDRESS</span>
+                  <h2 className="text-gray-600">{v.addresses}</h2>
+                </div>
+                <i
+                  title="Delete This Address"
+                  onClick={() => deleteAddress(v?._id)}
+                  className="bx bx-trash text-orange-400 text-xl absolute top-4 right-4 translate-x-10 group-hover:translate-x-0 transition-all duration-200 cursor-pointer"
+                ></i>
+              </div>
+            ))}
           </div>
           <div className="px-4 my-4">
             <div
               onClick={() => setShowForm(true)}
-              className=" flex items-center gap-2 p-2 w-fit rounded-lg shadow-md shadow-orange-100 bg-orange-100 cursor-pointer hover:bg-orange-200 transition"
+              className="flex items-center gap-2 p-2 w-fit rounded-lg shadow-md shadow-orange-100 bg-orange-100 cursor-pointer hover:bg-orange-200 transition"
             >
               <i className="bx bx-plus rounded-full h-6 w-6 pt-[3px] flex items-center text-center justify-center bg-orange-500 text-white transition-all duration-150 cursor-pointer text-xl"></i>
-              <span className=" text-orange-500">Add New Address</span>
+              <span className="text-orange-500">Add New Address</span>
             </div>
           </div>
         </div>
@@ -215,7 +196,7 @@ const index = () => {
           opacity: showForm ? "1" : "0",
           transition: ".4s",
         }}
-        className="fixed z-[100]  top-0 left-0 w-full h-screen border-orange-600 backdrop-blur-[2px] bg-[#00000094] overflow-auto"
+        className="fixed z-[100] top-0 left-0 w-full h-screen border-orange-600 backdrop-blur-[2px] bg-[#00000094] overflow-auto"
       >
         <div
           className={`${
@@ -223,21 +204,16 @@ const index = () => {
           } bg-white duration-500 md:mx-auto mx-4 my-8 relative p-4 max-w-xl lg:max-w-4xl border rounded-lg`}
         >
           <div className="flex items-center justify-between">
-            <h1 className=" text-xl text-gray-700 font-semibold">
-              Add New Shipping Address
-            </h1>
+            <h1 className="text-xl text-gray-700 font-semibold">Add New Shipping Address</h1>
             <span onClick={() => setShowForm(false)} className="cursor-pointer">
               <i className="bx bx-x text-gray-500 text-3xl hover:text-red-600"></i>
             </span>
           </div>
 
           <form className="space-y-6 mt-4" onSubmit={userSubmitAddressData}>
-            {/* Town / City ----------------------- */}
+            {/* Town / City */}
             <div>
-              <label
-                htmlFor="city"
-                className="block text-sm leading-6 text-gray-500"
-              >
+              <label htmlFor="city" className="block text-sm leading-6 text-gray-500">
                 City
               </label>
               <div className="mt-2">
@@ -252,12 +228,9 @@ const index = () => {
                 />
               </div>
             </div>
-            {/* New Address  ----------------------- */}
+            {/* New Address */}
             <div>
-              <label
-                htmlFor="addresses"
-                className="block text-sm leading-6 text-gray-500"
-              >
+              <label htmlFor="addresses" className="block text-sm leading-6 text-gray-500">
                 New Address
               </label>
               <div className="mt-2">
@@ -272,7 +245,7 @@ const index = () => {
                 />
               </div>
             </div>
-            {/* Button here --------------------- */}
+            {/* Button */}
             <div>
               <button
                 type="submit"
@@ -284,9 +257,8 @@ const index = () => {
           </form>
         </div>
       </div>
-      
     </>
   );
 };
 
-export default index;
+export default Index;

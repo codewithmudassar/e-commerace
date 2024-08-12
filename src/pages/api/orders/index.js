@@ -1,4 +1,4 @@
-import products from "@/backend/models";
+import { ProductsModel } from "@/backend/models";
 import dbConnect from "@/backend/dbConnect";
 import { orderModel } from "@/backend/models";
 
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         var foundOrders = await orderModel.find(match)
           .populate({
             path: "items.productID",
-            modal: products,
+            model: ProductsModel,
             select: ["title", "images", "stock"],
           })
           .populate("hasLoginUserData", "fullName email");

@@ -22,7 +22,7 @@ const Categorys = async () => {
       <div className="border p-7 bg-orange-50 rounded-xl  m-1 grid sm:grid-cols-1 lg:grid-cols-2  md:grid-cols-1 gap-4  w-full  ">
         {data?.message.map((v, i) => {
           return (
-            <div className=" capitalize flex  justify-between   font-bold border  rounded-xl bg-gradient-to-r from-orange-400  shadow-md shadow-orange-500 duration-500 p-2">
+            <div key={1} className=" capitalize flex  justify-between   font-bold border  rounded-xl bg-gradient-to-r from-orange-400  shadow-md shadow-orange-500 duration-500 p-2">
               {v.title}
               <div>
                 <Deletebutton id={v._id} />
