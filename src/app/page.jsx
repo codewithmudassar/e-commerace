@@ -1,5 +1,5 @@
 import React from "react";
-import Carousel from "@/components/Carousel";
+import Carousel from "@/components/carousel";
 import Famous from "@/components/Famous";
 import Link from "next/link";
 

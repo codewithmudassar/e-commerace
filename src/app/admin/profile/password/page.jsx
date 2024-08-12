@@ -1,5 +1,5 @@
 "use client"
-import Loader from "@/components/Loader";
+import Loader from "@/components/loader";
 import { AuthContext } from "@/context/AuthContext";
 import axios from "axios";
 import { useRouter } from "next/navigation";
