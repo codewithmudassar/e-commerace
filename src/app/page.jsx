@@ -3,7 +3,6 @@ import React from "react";
 import Carousel from "@/components/carousel";
 import Famous from "@/components/Famous";
 import Link from "next/link";
-import SliderComponent from "@/components/Slider";
 
 
 const Home = async () => {
@@ -62,8 +61,6 @@ const Home = async () => {
         <div>
           {/* <Category /> */}
         </div>
-
-        {/* <div><SliderComponent/> </div> */}
         <div className="flex-1 mt-3 ml-1 scrolling-container">
           <div className="scrolling-content gap-24">
             <p className="scrolling-item">
