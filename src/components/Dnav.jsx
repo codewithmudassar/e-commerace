@@ -19,6 +19,7 @@ const Dnav = () => {
       const res = await axios.post("/api/auth/logout");
       if (res.data.success) {
         router.push("/login");
+        window.location.reload();
       }
     } catch (error) {
       console.error("Logout failed", error);

@@ -29,9 +29,11 @@ const Page = () => {
         },
       });
       console.log("Login successful: ", response.data);
-      toast.success("User Logged In");
-      // Redirect to home page or dashboard
-      router.push("/dashboard"); // Change to the desired path
+      toast.success("User Logged In"); // Redirect to home page or dashboard
+      router.push("/"); // Change to the desired path
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error("Login error: ", error);
       const errorMessage =

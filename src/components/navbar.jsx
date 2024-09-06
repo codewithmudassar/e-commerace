@@ -7,10 +7,12 @@ import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { CartContext } from "@/context/CartProvider";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+
+  const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, refetch } = useContext(AuthContext);
@@ -25,6 +27,7 @@ const Navbar = () => {
       if (res.data.success) {
         toast.success("User Logout Successfully!");
         window.location.reload();
+        router.push("/login")
         refetch();
       }
     } catch (error) {
