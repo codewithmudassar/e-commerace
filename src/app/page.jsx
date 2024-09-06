@@ -3,6 +3,8 @@ import React from "react";
 import Carousel from "@/components/carousel";
 import Famous from "@/components/Famous";
 import Link from "next/link";
+import SliderComponent from "@/components/Slider";
+
 
 const Home = async () => {
   const images = [
@@ -60,14 +62,17 @@ const Home = async () => {
         <div>
           {/* <Category /> */}
         </div>
-        <div className="flex-1 mt-3 ml-1">
-          <marquee behavior="loop" direction="left">
-            {" "}
-            <p>
+
+        {/* <div><SliderComponent/> </div> */}
+        <div className="flex-1 mt-3 ml-1 scrolling-container">
+          <div className="scrolling-content gap-24">
+            <p className="scrolling-item">
   At this store, you can purchase a wide variety of items to meet all your needs. From everyday essentials and household goods to electronics, clothing, and unique gifts, our diverse selection ensures you&apos;ll find exactly what you&apos;re looking for. Whether you&apos;re shopping for yourself or searching for the perfect present, we have something for everyone. Enjoy the convenience of one-stop shopping with our extensive range of high-quality products.
 </p>
-
-          </marquee>
+            <p className="scrolling-item">
+  At this store, you can purchase a wide variety of items to meet all your needs. From everyday essentials and household goods to electronics, clothing, and unique gifts, our diverse selection ensures you&apos;ll find exactly what you&apos;re looking for. Whether you&apos;re shopping for yourself or searching for the perfect present, we have something for everyone. Enjoy the convenience of one-stop shopping with our extensive range of high-quality products.
+</p>
+          </div>
         </div>
       </div>
       {/* product   ....  .. . . . .          .  */}

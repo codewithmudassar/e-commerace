@@ -76,3 +76,30 @@ body::-webkit-scrollbar-thumb {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+.scrolling-container {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%; /* Ensure the container takes full width */
+}
+
+.scrolling-content {
+  display: flex; /* Use flex to align the duplicated content side by side */
+  animation: scroll-left 30s linear infinite; /* Adjust duration as needed */
+}
+
+.scrolling-item {
+  flex-shrink: 0; /* Prevent shrinking of items */
+  padding-right: 2rem; /* Add some space between duplicated content */
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Move by 50% to show the entire content */
+  }
+}
